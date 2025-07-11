@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OB - Signup</title>
+
+    <!-- Favicon -->
+    <link rel="apple-touch-icon" sizes="180x180" href="/static/images/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/static/images/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/static/images/favicon-16x16.png">
+    <link rel="manifest" href="/static/images/site.webmanifest">
+
+    <!-- Local CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+
+    <style>
+        .container {
+            max-width: 400px;
+            margin: 0 auto;
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+        }
+        h2 {
+            color: black;
+            font-family: 'Dax';
+        }
+        .form-group {
+            text-align: left;
+            margin-bottom: 15px;
+        }
+        label {
+            font-weight: bold;
+            font-family: 'Dax';
+        }
+        .title {
+            background-color: #EBE3D8;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px;
+            margin-bottom: 50px;
+        }
+        input {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        button {
+            background-color: #7F6D55;
+            color: white;
+            padding: 10px;
+            border: none;
+            width: 100%;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #635543;
+        }
+        p {
+            margin-top: 15px;
+        }
+        a {
+            color: black;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        .alert {
+            padding: 10px;
+            background-color: #f8d7da;
+            color: #721c24;
+            border-radius: 5px;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Logo and Title -->
+    <div class="title">
+        <img style="margin:10px;" src="/static/images/android-chrome-192x192.png" alt="Logo" width="48" height="48">
+        <h1 style="margin-top:15px;">Online Bookstore</h1>
+
+        <!-- Top Nav Bar -->
+        <div class="topnav">
+                <a  href="/">Home</a>
+                <a href="/books">Books</a>
+            {% if current_user.is_authenticated %}
+                <a href="/profile">Profile</a>
+                <a href="/logout">Logout</a>
+            {% else %}
+                <a href="/login">Login</a>
+                <a class="active" href="/register">Register</a>
+            {% endif %}
+        </div>
+    </div>
+
+    <!-- Signup Form Container -->
+    <div class="container">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="alert alert-{{ category }}">{{ message }}</div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+
+        <h2>Create a New Account</h2>
+        <form method="POST">
+            <div class="form-group">
+                <label for="username">Username</label>
+                <input type="text" id="username" name="username" required>
+            </div>
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" required>
+            </div>
+            <button type="submit">Sign Up</button>
+        </form>
+        <p style="text-align:center;font-family:arial;">Already have an account? <a style="font-size:19px;text-decoration:underline !important;text-decoration-thickness: 3px !important;" href="/login">Login here</a></p>
+    </div>
+
+</body>
+</html>

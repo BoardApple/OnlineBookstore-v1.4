@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Page Not Found</title>
+    <style>
+        @font-face {
+            font-family: 'Dax';
+            src: url('/static/fonts/dax-pro-bold.otf') format('OpenType')
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            text-align: center;
+            background-color: #EBE3D8;
+            padding: 50px;
+            color: #333;
+        }
+        h1 {
+            font-family: 'Dax';
+            font-size: 60px;
+            color: #D20A2E;
+        }
+        p {
+            font-size: 22px;
+            margin-bottom: 20px;
+        }
+        a {
+            font-family: 'Dax';
+            text-decoration: none;
+            color: white;
+            background-color: #7F6D55;
+            padding: 15px 20px;
+            border-radius: 7px;
+            border: 3px solid #635543;
+            font-size: 18px;
+        }
+        a:hover {
+            background-color: #635543;
+            transition-duration: 0.4s;
+        }
+        .book-icon {
+            font-size: 100px;
+        }
+    </style>
+</head>
+<body>
+    <div class="book-icon">📖</div>
+    <h1>404</h1>
+    <h1 style="color:black;">Lost in the Library</h1>
+    <p>Oops! It looks like this page is<br>missing from our bookshelf.</p>
+    <p style="margin-bottom: 45px;">But don’t worry, you can always go<br>back to find your next great read.</p>
+    <a href="{{ url_for('index') }}">Return to Bookstore</a>
+</body>
+</html>

@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OB - Edit Profile</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='/css/style.css') }}">
+
+    <!-- Favicon -->
+    <link rel="apple-touch-icon" sizes="180x180" href="/static/images/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/static/images/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/static/images/favicon-16x16.png">
+    <link rel="manifest" href="/static/images/site.webmanifest">
+
+</head>
+<body>
+     <header>
+        <div class="title" style="padding-top:0;padding-bottom:0;">
+            <img src="/static/images/android-chrome-192x192.png" alt="Logo" width="48" height="48">
+            <h1>Online Bookstore</h1>
+
+
+        <!-- Navigation Bar -->
+        <nav class="topnav">
+            <a href="/">Home</a>
+            <a href="/books">Books</a>
+            {% if current_user.is_authenticated %}
+                <div class="dropdown">
+                    <a href="/profile" class="profile-link">
+                        <img src="{{ url_for('static', filename='uploads/' + (current_user.profile_picture if current_user.profile_picture else 'default-profile.jpg')) }}"
+                             alt="Profile Picture"
+                             class="nav-profile-pic">
+                    </a>
+                    <div class="dropdown-menu">
+                        <a href="/profile">Profile</a>
+                        <a href="/logout">Logout</a>
+                    </div>
+                </div>
+            {% else %}
+                <a href="/login">Login</a>
+                <a href="/register">Register</a>
+            {% endif %}
+        </nav>
+      </div>
+    </header>
+
+    <div class="container mt-4">
+        <h2>Edit Your Profile</h2>
+        <form method="POST" enctype="multipart/form-data">
+            <div class="form-group">
+                <label for="username">Username:</label>
+                <input type="text" id="username" name="username" class="form-control" value="{{ current_user.username }}" disabled>
+            </div>
+
+            <div class="form-group">
+                <label for="password">New Password:</label>
+                <input type="password" id="password" name="password" class="form-control" placeholder="Enter new password (optional)">
+            </div>
+
+            <div class="form-group">
+                <label for="confirm_password">Confirm New Password:</label>
+                <input type="password" id="confirm_password" name="confirm_password" class="form-control" placeholder="Confirm new password">
+            </div>
+
+            <div class="form-group">
+                <label for="profile_picture">Profile Picture:</label>
+                <input type="file" id="profile_picture" name="profile_picture" class="form-control">
+                {% if current_user.profile_picture %}
+                    <img src="{{ url_for('static', filename='uploads/' + current_user.profile_picture) }}"
+                         class="rounded-circle mb-3 profile-img"
+                         alt="Profile Picture">
+                    <button type="submit" name="remove_pfp" value="1" class="btn btn-danger">Remove Profile Picture</button>
+                {% endif %}
+            </div>
+
+            <button type="submit" class="btn btn-primary">Save Changes</button>
+        </form>
+    </div>
+
+</body>
+</html>

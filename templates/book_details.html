@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ book.title }} - Online Bookstore</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Favicon -->
+    <link rel="apple-touch-icon" sizes="180x180" href="/static/images/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/static/images/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/static/images/favicon-16x16.png">
+    <link rel="manifest" href="/static/images/site.webmanifest">
+
+    <!-- Bootstrap for Dropdown (Optional if you use Bootstrap) -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<style>
+    a {
+        color: black;
+    }
+</style>
+<body>
+    <header>
+        <div class="title" style="padding-top:0;padding-bottom:0;">
+            <img src="/static/images/android-chrome-192x192.png" alt="Logo" width="48" height="48">
+            <h1>Online Bookstore</h1>
+
+
+        <!-- Navigation Bar -->
+        <nav class="topnav">
+            <a href="/">Home</a>
+            <a class="active" href="/books">Books</a>
+            {% if current_user.is_authenticated %}
+                <div class="dropdown">
+                    <a href="/profile" class="profile-link">
+                        <img src="{{ url_for('static', filename='uploads/' + (current_user.profile_picture if current_user.profile_picture else 'default-profile.jpg')) }}"
+                             alt="Profile Picture"
+                             class="nav-profile-pic">
+                    </a>
+                    <div class="dropdown-menu">
+                        <a href="/profile">Profile</a>
+                        <a href="/logout">Logout</a>
+                    </div>
+                </div>
+            {% else %}
+                <a href="/login">Login</a>
+                <a href="/register">Register</a>
+            {% endif %}
+        </nav>
+      </div>
+    </header>
+
+    <div class="container mt-4">
+        <div class="row">
+            <div class="col-md-6">
+                <img src="{{ book.image_url }}" alt="{{ book.title }}" class="img-fluid">
+            </div>
+            <div class="col-md-6">
+                <h2>{{ book.title }}</h2>
+                <h4><strong>Author:</strong> {{ book.author }}</h4>
+                <p><strong>Description:</strong> {{ book.description }}</p>
+                <p><strong>Price:</strong> £{{ book.price }}</p>
+
+                <!-- Rating / Reviews Section -->
+                <div class="ratings">
+                    <p><strong>Rating:</strong> 4.5 / 5</p> <!-- Placeholder for now -->
+                    <a href="#">Read Reviews</a>
+                </div>
+
+                <!-- Purchase Options -->
+                <div class="purchase-options mt-3">
+                    <a href="#" class="btn btn-primary">Add to Cart</a>
+                    <a href="#" class="btn btn-success">Buy Now</a>
+                </div>
+
+                <!-- Related Books Section (for author or genre) -->
+                <div class="related-books mt-4">
+                    <h5><strong>Other Books by {{ book.author }}:</strong></h5>
+                    <ul>
+                        {% if related_books %}
+                            {% for related in related_books %}
+                                <li><a href="{{ url_for('book_details', book_id=related.id) }}">{{ related.title }}</a></li>
+                            {% endfor %}
+                        {% else %}
+                            <li>No other books by this author.</li>
+                        {% endif %}
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <a href="/books" class="btn btn-secondary mt-4">Back to Books</a>
+        <a href="/" class="btn btn-secondary mt-4">Back to Home</a>
+    </div>
+
+    <!-- Bootstrap JavaScript Bundle -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

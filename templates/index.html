@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Favicon -->
+    <link rel="apple-touch-icon" sizes="180x180" href="/static/images/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/static/images/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/static/images/favicon-16x16.png">
+    <link rel="manifest" href="/static/images/site.webmanifest">
+
+    <title>OB - Home</title>
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Local CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+
+</head>
+<body>
+    <header>
+        <div class="title">
+            <img src="/static/images/android-chrome-192x192.png" alt="Logo" width="48" height="48">
+            <h1>Online Bookstore</h1>
+
+
+        <!-- Navigation Bar -->
+        <nav class="topnav">
+            <a class="active" href="/">Home</a>
+            <a href="/books">Books</a>
+            {% if current_user.is_authenticated %}
+                <div class="dropdown">
+                    <a href="/profile" class="profile-link">
+                        <img src="{{ url_for('static', filename='uploads/' + (current_user.profile_picture if current_user.profile_picture else 'default-profile.jpg')) }}"
+                             alt="Profile Picture"
+                             class="nav-profile-pic">
+                    </a>
+                    <div class="dropdown-menu">
+                        <a href="/profile">Profile</a>
+                        <a href="/logout">Logout</a>
+                    </div>
+                </div>
+            {% else %}
+                <a href="/login">Login</a>
+                <a href="/register">Register</a>
+            {% endif %}
+        </nav>
+      </div>
+    </header>
+
+    <!-- Bootstrap Carousel -->
+    <div class="Carousel">
+        <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel" data-bs-interval="5000">
+            <div class="carousel-inner">
+                <div class="carousel-item active">
+                    <img class="d-block w-100" src="/static/images/SliderImage1.png" alt="First slide">
+                </div>
+                <div class="carousel-item">
+                    <img class="d-block w-100" src="/static/images/SliderImage2.png" alt="Second slide">
+                </div>
+                <div class="carousel-item">
+                    <img class="d-block w-100" src="/static/images/SliderImage3.png" alt="Third slide">
+                </div>
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- Main Books Section -->
+    <div class="main-books">
+        <div class="book-item">
+            <a href="/book/1">
+                <img src="/static/images/HarryPotter1.jpg" alt="Book 1">
+            </a>
+            <p><strong>Harry Potter and the<br>Philosopher's Stone</strong></p>
+            <p>Author: J.K. Rowling</p>
+            <p>Price: £12.55</p>
+        </div>
+        <div class="book-item">
+            <a href="/book/2">
+                <img src="/static/images/HarryPotter2.jpg" alt="Book 2">
+            </a>
+            <p><strong>Harry Potter and the<br>Chamber Of Secrets</strong></p>
+            <p>Author: J.K. Rowling</p>
+            <p>Price: £13.69</p>
+        </div>
+        <div class="book-item">
+            <a href="/book/3">
+                <img src="/static/images/HarryPotter3.jpg" alt="Book 3">
+            </a>
+            <p><strong>Harry Potter and the<br>Prisoner of Azkaban</strong></p>
+            <p>Author: J.K. Rowling</p>
+            <p>Price: £12.55</p>
+        </div>
+        <div class="book-item">
+            <a href="/book/4">
+                <img src="/static/images/HarryPotter4.jpg" alt="Book 4">
+            </a>
+            <p><strong>Harry Potter and the<br>Goblet of Fire</strong></p>
+            <p>Author: J.K. Rowling</p>
+            <p>Price: £14.25</p>
+        </div>
+        <div class="book-item">
+            <a href="/book/5">
+                <img src="/static/images/HarryPotter5.jpg" alt="Book 5">
+            </a>
+            <p><strong>Harry Potter and the<br>Order of The Phoenix</strong></p>
+            <p>Author: J.K. Rowling</p>
+            <p>Price: £12.87</p>
+        </div>
+        <div class="book-item">
+            <a href="/book/6">
+                <img src="/static/images/HarryPotter6.jpg" alt="Book 6">
+            </a>
+            <p><strong>Harry Potter and the<br>Half-Blood Prince</strong></p>
+            <p>Author: J.K. Rowling</p>
+            <p>Price: £13.97</p>
+        </div>
+        <div class="book-item">
+            <a href="/book/7">
+                <img src="/static/images/HarryPotter7.jpg" alt="Book 7">
+            </a>
+            <p><strong>Harry Potter and the<br>Deathly Hallows</strong></p>
+            <p>Author: J.K. Rowling</p>
+            <p>Price: £14.85</p>
+        </div>
+    </div>
+
+    <!-- Bootstrap JavaScript Bundle -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

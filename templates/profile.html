@@ -1,0 +1,96 @@
+{% extends "base.html" %}
+
+{% block title %}OB - {{ current_user.username }}'s Profile{% endblock %}
+
+{% block content %}
+    <header>
+        <div class="title">
+            <img src="/static/images/android-chrome-192x192.png" alt="Logo" width="48" height="48">
+            <h1>Online Bookstore</h1>
+
+
+        <!-- Navigation Bar -->
+        <nav class="topnav">
+            <a href="/">Home</a>
+            <a href="/books">Books</a>
+            {% if current_user.is_authenticated %}
+                <div class="dropdown">
+                    <a href="/profile" class="profile-link">
+                        <img src="{{ url_for('static', filename='uploads/' + (current_user.profile_picture if current_user.profile_picture else 'default-profile.jpg')) }}"
+                             alt="Profile Picture"
+                             class="nav-profile-pic">
+                    </a>
+                    <div class="dropdown-menu">
+                        <a href="/profile">Profile</a>
+                        <a href="/logout">Logout</a>
+                    </div>
+                </div>
+            {% else %}
+                <a href="/login">Login</a>
+                <a href="/register">Register</a>
+            {% endif %}
+        </nav>
+      </div>
+    </header>
+<div class="container mt-4">
+    <div class="row">
+
+<!-- Profile Card -->
+<div class="col-md-4">
+    <div class="card profile-card shadow-lg">
+        <div class="card-body text-center">
+            <img src="{{ url_for('static', filename='uploads/' + (current_user.profile_picture if current_user.profile_picture else 'default-profile.jpg')) }}"
+                 class="rounded-circle mb-3 profile-img"
+                 alt="Profile Picture">
+            <h4 class="card-title">{{ current_user.username }}</h4>
+            <p class="card-text"><strong>Member Since:</strong> {{ current_user.created_at.strftime('%B %d, %Y') }}</p>
+            <a href="/edit_profile" class="btn btn-primary mt-2">Edit Profile</a>
+        </div>
+    </div>
+</div>
+
+
+        <!-- Purchase History -->
+        <div class="col-md-8">
+            <div class="card shadow-lg">
+                <div class="card-body">
+                    <h3 class="card-title">Purchase History</h3>
+                    {% if purchases %}
+                        <ul class="list-group list-group-flush">
+                            {% for purchase in purchases %}
+                                <li class="list-group-item">
+                                    <strong>{{ purchase.book_title }}</strong> - £{{ purchase.price }}
+                                    <span class="text-muted">(Purchased on {{ purchase.date.strftime('%d %B %Y') }})</span>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    {% else %}
+                        <p class="text-muted">You haven’t purchased any books yet.</p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Custom Styles -->
+<style>
+    .profile-card {
+        background: #f8f9fa;
+        border-radius: 10px;
+        padding: 20px;
+    }
+
+    .profile-img {
+        width: 100px;
+        height: 100px;
+        object-fit: cover;
+        border: 3px solid #1E3A8A;
+    }
+
+    .list-group-item {
+        border: none;
+        border-bottom: 1px solid #e0e0e0;
+    }
+</style>
+{% endblock %}
